@@ -302,12 +302,14 @@ class InlineEditSideBySideContentWidget extends Disposable implements IOverlayWi
 			if (width <= 0) {
 				return;
 			}
+			console.log('Updating layout', { width, height });
 			this._previewEditor.layout({ height: height, width: width });
 		}));
 
 		this._register(autorun(reader => {
 			/** @description update position */
 			this._position.read(reader);
+			console.log('Updating position');
 			this._editor.layoutOverlayWidget(this);
 		}));
 
@@ -318,6 +320,7 @@ class InlineEditSideBySideContentWidget extends Disposable implements IOverlayWi
 			if (!position) {
 				return;
 			}
+			console.log('Updating scroll');
 			this._editor.layoutOverlayWidget(this);
 		}));
 	}
@@ -341,6 +344,7 @@ class InlineEditSideBySideContentWidget extends Disposable implements IOverlayWi
 		const top = visibPos.top - 1; //-1 to offset the border width
 		const offset = this._editor.getOffsetForColumn(position.left.lineNumber, position.left.column);
 		const left = layoutInfo.contentLeft + offset + 10;
+		console.log('Position', { top, left });
 		return {
 			preference: {
 				left,
